@@ -13,9 +13,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/xfrr/goffmpeg/ffmpeg"
-	"github.com/xfrr/goffmpeg/models"
-	"github.com/xfrr/goffmpeg/utils"
+	"github.com/meteor-technology/goffmpeg/ffmpeg"
+	"github.com/meteor-technology/goffmpeg/models"
+	"github.com/meteor-technology/goffmpeg/utils"
 )
 
 // Transcoder Main struct

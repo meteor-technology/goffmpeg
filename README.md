@@ -1,29 +1,33 @@
 ﻿# Goffmpeg
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93e018e5008b4439acbb30d715b22e7f)](https://www.codacy.com/app/francisco.romero/goffmpeg?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xfrr/goffmpeg&amp;utm_campaign=Badge_Grade)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93e018e5008b4439acbb30d715b22e7f)](https://www.codacy.com/app/francisco.romero/goffmpeg?utm_source=github.com&utm_medium=referral&utm_content=meteor-technology/goffmpeg&utm_campaign=Badge_Grade)
 
 FFMPEG wrapper written in GO which allows to obtain the progress.
 
 # Dependencies
+
 - [FFmpeg](https://www.ffmpeg.org/)
 - [FFProbe](https://www.ffmpeg.org/ffprobe.html)
 
 # Supported platforms
 
- - Linux
- - OS X
- - Windows
+- Linux
+- OS X
+- Windows
 
 # Getting started
+
 ## How to transcode a media file
+
 ```shell
-go get github.com/xfrr/goffmpeg
+go get github.com/meteor-technology/goffmpeg
 ```
 
 ```go
 package main
 
 import (
-    "github.com/xfrr/goffmpeg/transcoder"
+    "github.com/meteor-technology/goffmpeg/transcoder"
 )
 
 var inputPath = "/data/testmov"
@@ -47,7 +51,9 @@ func main() {
 
 }
 ```
+
 ## How to get the transcoding progress
+
 ```go
 ...
 func main() {
@@ -77,6 +83,7 @@ func main() {
 ```
 
 ## How to pipe in data using the [pipe protocol](https://ffmpeg.org/ffmpeg-protocols.html#pipe)
+
 ```go
 func main() {
 
@@ -104,6 +111,7 @@ func main() {
 ```
 
 # Progress properties
+
 ```go
 type Progress struct {
 	FramesProcessed string
@@ -113,55 +121,60 @@ type Progress struct {
 	Speed           string
 }
 ```
+
 # Media setters
+
 Those options can be set before starting the transcoding.
+
 ```js
-SetAspect
-SetResolution
-SetVideoBitRate
-SetVideoBitRateTolerance
-SetVideoMaxBitrate
-SetVideoMinBitRate
-SetVideoCodec
-SetVframes
-SetFrameRate
-SetAudioRate
-SetSkipAudio
-SetSkipVideo
-SetMaxKeyFrame
-SetMinKeyFrame
-SetKeyframeInterval
-SetAudioCodec
-SetAudioBitRate
-SetAudioChannels
-SetBufferSize
-SetThreads
-SetPreset
-SetTune
-SetAudioProfile
-SetVideoProfile
-SetDuration
-SetDurationInput
-SetSeekTime
-SetSeekTimeInput
-SetSeekUsingTsInput
-SetQuality
-SetStrict
-SetCopyTs
-SetMuxDelay
-SetHideBanner
-SetInputPath
-SetNativeFramerateInput
-SetRtmpLive
-SetHlsListSize
-SetHlsSegmentDuration
-SetHlsPlaylistType
-SetHttpMethod
-SetHttpKeepAlive
-SetOutputPath
-SetOutputFormat
+SetAspect;
+SetResolution;
+SetVideoBitRate;
+SetVideoBitRateTolerance;
+SetVideoMaxBitrate;
+SetVideoMinBitRate;
+SetVideoCodec;
+SetVframes;
+SetFrameRate;
+SetAudioRate;
+SetSkipAudio;
+SetSkipVideo;
+SetMaxKeyFrame;
+SetMinKeyFrame;
+SetKeyframeInterval;
+SetAudioCodec;
+SetAudioBitRate;
+SetAudioChannels;
+SetBufferSize;
+SetThreads;
+SetPreset;
+SetTune;
+SetAudioProfile;
+SetVideoProfile;
+SetDuration;
+SetDurationInput;
+SetSeekTime;
+SetSeekTimeInput;
+SetSeekUsingTsInput;
+SetQuality;
+SetStrict;
+SetCopyTs;
+SetMuxDelay;
+SetHideBanner;
+SetInputPath;
+SetNativeFramerateInput;
+SetRtmpLive;
+SetHlsListSize;
+SetHlsSegmentDuration;
+SetHlsPlaylistType;
+SetHttpMethod;
+SetHttpKeepAlive;
+SetOutputPath;
+SetOutputFormat;
 ```
+
 Example
+
 ```golang
 func main() {
 
@@ -194,5 +207,6 @@ func main() {
 }
 ```
 
-----
+---
+
 > Building...
