@@ -10,6 +10,7 @@ import (
 
 type Mediafile struct {
 	aspect                string
+	codec                 string
 	resolution            string
 	videoBitRate          int
 	videoBitRateTolerance int
@@ -39,6 +40,7 @@ type Mediafile struct {
 	quality               int
 	strict                int
 	muxDelay              string
+	mapMetadata           int
 	seekUsingTsInput      bool
 	seekTimeInput         string
 	inputPath             string
@@ -84,6 +86,10 @@ func (m *Mediafile) SetFilter(v string) {
 
 func (m *Mediafile) SetAspect(v string) {
 	m.aspect = v
+}
+
+func (m *Mediafile) SetCodec(v string) {
+	m.codec = v
 }
 
 func (m *Mediafile) SetResolution(v string) {
@@ -222,6 +228,10 @@ func (m *Mediafile) SetMuxDelay(val string) {
 	m.muxDelay = val
 }
 
+func (m *Mediafile) SetMapMetadata(val int) {
+	m.mapMetadata = val
+}
+
 func (m *Mediafile) SetOutputPath(val string) {
 	m.outputPath = val
 }
@@ -256,6 +266,10 @@ func (m *Mediafile) SetHlsMasterPlaylistName(val string) {
 
 func (m *Mediafile) SetHlsSegmentFilename(val string) {
 	m.hlsSegmentFilename = val
+}
+
+func (m *Mediafile) SetHlsSegmentType(val string) {
+	m.HlsSegmentType = val
 }
 
 func (m *Mediafile) SetHttpMethod(val string) {
@@ -527,11 +541,11 @@ func (m *Mediafile) ToStrCommand() []string {
 		"InputPath",
 		"InputPipeCommand",
 		"HideBanner",
-
 		"Aspect",
 		"Resolution",
 		"FrameRate",
 		"AudioRate",
+		"Codec",
 		"VideoCodec",
 		"Vframes",
 		"VideoBitRate",
@@ -549,6 +563,7 @@ func (m *Mediafile) ToStrCommand() []string {
 		"Strict",
 		"BufferSize",
 		"MuxDelay",
+		"MapMetadata",
 		"Threads",
 		"KeyframeInterval",
 		"Preset",
@@ -564,6 +579,7 @@ func (m *Mediafile) ToStrCommand() []string {
 		"HlsPlaylistType",
 		"HlsMasterPlaylistName",
 		"HlsSegmentFilename",
+		"HlsSegmentType",
 		"AudioFilter",
 		"VideoFilter",
 		"HttpMethod",
@@ -647,6 +663,13 @@ func (m *Mediafile) ObtainNativeFramerateInput() []string {
 
 func (m *Mediafile) ObtainOutputPath() []string {
 	return []string{m.outputPath}
+}
+
+func (m *Mediafile) ObtainCodec() []string {
+	if m.codec != "" {
+		return []string{"-c", m.codec}
+	}
+	return nil
 }
 
 func (m *Mediafile) ObtainVideoCodec() []string {
@@ -854,6 +877,13 @@ func (m *Mediafile) ObtainOutputFormat() []string {
 func (m *Mediafile) ObtainMuxDelay() []string {
 	if m.muxDelay != "" {
 		return []string{"-muxdelay", m.muxDelay}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainMapMetadata() []string {
+	if m.mapMetadata != 0 {
+		return []string{"-map_metadata", fmt.Sprintf("%d", m.mapMetadata)}
 	}
 	return nil
 }
