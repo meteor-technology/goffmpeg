@@ -4,6 +4,8 @@
 
 FFMPEG wrapper written in GO which allows to obtain the progress.
 
+This repository is fork from goffmpeg. Original is [here](https://github.com/xfrr/goffmpeg).
+
 # Dependencies
 
 - [FFmpeg](https://www.ffmpeg.org/)
