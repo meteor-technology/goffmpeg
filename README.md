@@ -1,8 +1,6 @@
 ﻿# Goffmpeg
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93e018e5008b4439acbb30d715b22e7f)](https://www.codacy.com/app/francisco.romero/goffmpeg?utm_source=github.com&utm_medium=referral&utm_content=meteor-technology/goffmpeg&utm_campaign=Badge_Grade)
-
-FFMPEG wrapper written in GO which allows to obtain the progress.
+FFmpeg wrapper written in Go which allows to obtain the progress.
 
 This repository is fork from goffmpeg. Original is [here](https://github.com/xfrr/goffmpeg).
 
@@ -130,6 +128,7 @@ Those options can be set before starting the transcoding.
 
 ```js
 SetAspect;
+SetCodec;
 SetResolution;
 SetVideoBitRate;
 SetVideoBitRateTolerance;
@@ -162,6 +161,7 @@ SetQuality;
 SetStrict;
 SetCopyTs;
 SetMuxDelay;
+SetMapMetadata;
 SetHideBanner;
 SetInputPath;
 SetNativeFramerateInput;
@@ -171,6 +171,7 @@ SetHlsSegmentDuration;
 SetHlsPlaylistType;
 SetHlsMasterPlaylistName;
 SetHlsSegmentFilename;
+SetHlsSegmentType;
 SetHttpMethod;
 SetHttpKeepAlive;
 SetOutputPath;
