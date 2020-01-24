@@ -55,6 +55,7 @@ type Mediafile struct {
 	hlsSegmentDuration    int
 	hlsMasterPlaylistName string
 	hlsSegmentFilename    string
+	HlsSegmentType        string
 	httpMethod            string
 	httpKeepAlive         bool
 	streamIds             map[int]string
@@ -911,6 +912,14 @@ func (m *Mediafile) ObtainHlsMasterPlaylistName() []string {
 func (m *Mediafile) ObtainHlsSegmentFilename() []string {
 	if m.hlsSegmentFilename != "" {
 		return []string{"-hls_segment_filename", fmt.Sprintf("%s", m.hlsSegmentFilename)}
+	} else {
+		return nil
+	}
+}
+
+func (m *Mediafile) ObtainHlsSegmentType() []string {
+	if m.HlsSegmentType != "" {
+		return []string{"-hls_segment_type", fmt.Sprintf("%s", m.HlsSegmentType)}
 	} else {
 		return nil
 	}
