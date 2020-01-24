@@ -1,12 +1,11 @@
 language: go
 go:
-  - "1.9"
+  - "1.13"
   - master
-  
+
 install: true
 
 matrix:
-
   allow_failures:
     - go: master
 
