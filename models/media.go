@@ -68,6 +68,26 @@ type Mediafile struct {
 	skipAudio             bool
 	movflags              string
 	bframe                int
+	loop                  int
+	pixelFormat           string
+	imagePath             string
+	shortest              bool
+}
+
+func (m *Mediafile) SetLoop(v int) {
+	m.loop = v
+}
+
+func (m *Mediafile) SetPixelFormat(v string) {
+	m.pixelFormat = v
+}
+
+func (m *Mediafile) SetImagePath(v string) {
+	m.imagePath = v
+}
+
+func (m *Mediafile) SetShortest(v bool) {
+	m.shortest = v
 }
 
 /*** SETTERS ***/
@@ -587,6 +607,10 @@ func (m *Mediafile) ToStrCommand() []string {
 		"OutputPath",
 		"Bframe",
 		"MovFlags",
+		"Loop",
+		"PixelFormat",
+		"ImagePath",
+		"Shortest",
 	}
 	for _, name := range opts {
 		opt := reflect.ValueOf(m).MethodByName(fmt.Sprintf("Obtain%s", name))
@@ -600,6 +624,34 @@ func (m *Mediafile) ToStrCommand() []string {
 	}
 
 	return strCommand
+}
+
+func (m *Mediafile) ObtainLoop(v int) []string {
+	if m.loop != 0 {
+		return []string{"-loop", fmt.Sprintf("%d", m.loop)}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainPixelFormat(v string) []string {
+	if m.pixelFormat != "" {
+		return []string{"-pix_fmt", m.audioFilter}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainImagePath(v string) []string {
+	if m.imagePath != "" {
+		return []string{"-i", m.imagePath}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainShortest(v bool) []string {
+	if m.shortest {
+		return []string{"shortest"}
+	}
+	return nil
 }
 
 func (m *Mediafile) ObtainAudioFilter() []string {
