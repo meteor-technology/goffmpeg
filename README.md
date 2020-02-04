@@ -176,6 +176,10 @@ SetHttpMethod;
 SetHttpKeepAlive;
 SetOutputPath;
 SetOutputFormat;
+SetLoop;
+SetPixelFormat;
+SetImagePath;
+SetShortest;
 ```
 
 Example
