@@ -68,9 +68,9 @@ type Mediafile struct {
 	skipAudio             bool
 	movflags              string
 	bframe                int
-	loop                  int
-	pixelFormat           string
 	imagePath             string
+	looping               int
+	pixelFormat           string
 	shortest              bool
 }
 
@@ -312,16 +312,16 @@ func (m *Mediafile) SetBframe(v int) {
 	m.bframe = v
 }
 
-func (m *Mediafile) SetLoop(v int) {
-	m.loop = v
+func (m *Mediafile) SetImagePath(v string) {
+	m.imagePath = v
+}
+
+func (m *Mediafile) SetLooping(v int) {
+	m.looping = v
 }
 
 func (m *Mediafile) SetPixelFormat(v string) {
 	m.pixelFormat = v
-}
-
-func (m *Mediafile) SetImagePath(v string) {
-	m.imagePath = v
 }
 
 func (m *Mediafile) SetShortest(v bool) {
@@ -547,16 +547,16 @@ func (m *Mediafile) Metadata() Metadata {
 	return m.metadata
 }
 
-func (m *Mediafile) Loop() int {
-	return m.loop
+func (m *Mediafile) ImagePath() string {
+	return m.imagePath
+}
+
+func (m *Mediafile) Looping() int {
+	return m.looping
 }
 
 func (m *Mediafile) PixelFormat() string {
 	return m.pixelFormat
-}
-
-func (m *Mediafile) ImagePath() string {
-	return m.imagePath
 }
 
 func (m *Mediafile) Shortest() bool {
@@ -624,7 +624,7 @@ func (m *Mediafile) ToStrCommand() []string {
 		"OutputPath",
 		"Bframe",
 		"MovFlags",
-		"Loop",
+		"Looping",
 		"PixelFormat",
 		"Shortest",
 	}
@@ -642,7 +642,7 @@ func (m *Mediafile) ToStrCommand() []string {
 	return strCommand
 }
 
-func (m *Mediafile) ObtainImagePath(v string) []string {
+func (m *Mediafile) ObtainImagePath() []string {
 	if m.imagePath != "" {
 		return []string{"-i", m.imagePath}
 	}
@@ -1059,21 +1059,21 @@ func (m *Mediafile) ObtainMovFlags() []string {
 	return nil
 }
 
-func (m *Mediafile) ObtainLoop(v int) []string {
-	if m.loop != 0 {
-		return []string{"-loop", fmt.Sprintf("%d", m.loop)}
+func (m *Mediafile) ObtainLooping() []string {
+	if m.looping != 0 {
+		return []string{"-loop", fmt.Sprintf("%d", m.looping)}
 	}
 	return nil
 }
 
-func (m *Mediafile) ObtainPixelFormat(v string) []string {
+func (m *Mediafile) ObtainPixelFormat() []string {
 	if m.pixelFormat != "" {
 		return []string{"-pix_fmt", m.audioFilter}
 	}
 	return nil
 }
 
-func (m *Mediafile) ObtainShortest(v bool) []string {
+func (m *Mediafile) ObtainShortest() []string {
 	if m.shortest {
 		return []string{"-shortest"}
 	}
