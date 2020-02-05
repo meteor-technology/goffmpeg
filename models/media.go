@@ -74,22 +74,6 @@ type Mediafile struct {
 	shortest              bool
 }
 
-func (m *Mediafile) SetLoop(v int) {
-	m.loop = v
-}
-
-func (m *Mediafile) SetPixelFormat(v string) {
-	m.pixelFormat = v
-}
-
-func (m *Mediafile) SetImagePath(v string) {
-	m.imagePath = v
-}
-
-func (m *Mediafile) SetShortest(v bool) {
-	m.shortest = v
-}
-
 /*** SETTERS ***/
 func (m *Mediafile) SetAudioFilter(v string) {
 	m.audioFilter = v
@@ -328,6 +312,22 @@ func (m *Mediafile) SetBframe(v int) {
 	m.bframe = v
 }
 
+func (m *Mediafile) SetLoop(v int) {
+	m.loop = v
+}
+
+func (m *Mediafile) SetPixelFormat(v string) {
+	m.pixelFormat = v
+}
+
+func (m *Mediafile) SetImagePath(v string) {
+	m.imagePath = v
+}
+
+func (m *Mediafile) SetShortest(v bool) {
+	m.shortest = v
+}
+
 /*** GETTERS ***/
 
 // Deprecated: Use VideoFilter instead.
@@ -547,11 +547,28 @@ func (m *Mediafile) Metadata() Metadata {
 	return m.metadata
 }
 
+func (m *Mediafile) Loop() int {
+	return m.loop
+}
+
+func (m *Mediafile) PixelFormat() string {
+	return m.pixelFormat
+}
+
+func (m *Mediafile) ImagePath() string {
+	return m.imagePath
+}
+
+func (m *Mediafile) Shortest() bool {
+	return m.shortest
+}
+
 /** OPTS **/
 func (m *Mediafile) ToStrCommand() []string {
 	var strCommand []string
 
 	opts := []string{
+		"ImagePath",
 		"SeekTimeInput",
 		"SeekUsingTsInput",
 		"NativeFramerateInput",
@@ -609,7 +626,6 @@ func (m *Mediafile) ToStrCommand() []string {
 		"MovFlags",
 		"Loop",
 		"PixelFormat",
-		"ImagePath",
 		"Shortest",
 	}
 	for _, name := range opts {
@@ -626,30 +642,9 @@ func (m *Mediafile) ToStrCommand() []string {
 	return strCommand
 }
 
-func (m *Mediafile) ObtainLoop(v int) []string {
-	if m.loop != 0 {
-		return []string{"-loop", fmt.Sprintf("%d", m.loop)}
-	}
-	return nil
-}
-
-func (m *Mediafile) ObtainPixelFormat(v string) []string {
-	if m.pixelFormat != "" {
-		return []string{"-pix_fmt", m.audioFilter}
-	}
-	return nil
-}
-
 func (m *Mediafile) ObtainImagePath(v string) []string {
 	if m.imagePath != "" {
 		return []string{"-i", m.imagePath}
-	}
-	return nil
-}
-
-func (m *Mediafile) ObtainShortest(v bool) []string {
-	if m.shortest {
-		return []string{"shortest"}
 	}
 	return nil
 }
@@ -717,13 +712,6 @@ func (m *Mediafile) ObtainOutputPath() []string {
 	return []string{m.outputPath}
 }
 
-func (m *Mediafile) ObtainCodec() []string {
-	if m.codec != "" {
-		return []string{"-c", m.codec}
-	}
-	return nil
-}
-
 func (m *Mediafile) ObtainVideoCodec() []string {
 	if m.videoCodec != "" {
 		return []string{"-c:v", m.videoCodec}
@@ -748,6 +736,13 @@ func (m *Mediafile) ObtainFrameRate() []string {
 func (m *Mediafile) ObtainAudioRate() []string {
 	if m.audioRate != 0 {
 		return []string{"-ar", fmt.Sprintf("%d", m.audioRate)}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainCodec() []string {
+	if m.codec != "" {
+		return []string{"-c", m.codec}
 	}
 	return nil
 }
@@ -1060,6 +1055,27 @@ func (m *Mediafile) ObtainBframe() []string {
 func (m *Mediafile) ObtainMovFlags() []string {
 	if m.movflags != "" {
 		return []string{"-movflags", m.movflags}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainLoop(v int) []string {
+	if m.loop != 0 {
+		return []string{"-loop", fmt.Sprintf("%d", m.loop)}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainPixelFormat(v string) []string {
+	if m.pixelFormat != "" {
+		return []string{"-pix_fmt", m.audioFilter}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainShortest(v bool) []string {
+	if m.shortest {
+		return []string{"-shortest"}
 	}
 	return nil
 }
