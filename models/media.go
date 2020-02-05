@@ -9,6 +9,7 @@ import (
 )
 
 type Mediafile struct {
+	otherPath             string
 	aspect                string
 	codec                 string
 	resolution            string
@@ -68,10 +69,13 @@ type Mediafile struct {
 	skipAudio             bool
 	movflags              string
 	bframe                int
-	imagePath             string
 	looping               int
 	pixelFormat           string
 	shortest              bool
+}
+
+func (m *Mediafile) SetOtherPath(v string) {
+	m.otherPath = v
 }
 
 /*** SETTERS ***/
@@ -312,10 +316,6 @@ func (m *Mediafile) SetBframe(v int) {
 	m.bframe = v
 }
 
-func (m *Mediafile) SetImagePath(v string) {
-	m.imagePath = v
-}
-
 func (m *Mediafile) SetLooping(v int) {
 	m.looping = v
 }
@@ -329,6 +329,10 @@ func (m *Mediafile) SetShortest(v bool) {
 }
 
 /*** GETTERS ***/
+
+func (m *Mediafile) OtherPath() string {
+	return m.otherPath
+}
 
 // Deprecated: Use VideoFilter instead.
 func (m *Mediafile) Filter() string {
@@ -547,10 +551,6 @@ func (m *Mediafile) Metadata() Metadata {
 	return m.metadata
 }
 
-func (m *Mediafile) ImagePath() string {
-	return m.imagePath
-}
-
 func (m *Mediafile) Looping() int {
 	return m.looping
 }
@@ -568,7 +568,7 @@ func (m *Mediafile) ToStrCommand() []string {
 	var strCommand []string
 
 	opts := []string{
-		"ImagePath",
+		"OtherPath",
 		"SeekTimeInput",
 		"SeekUsingTsInput",
 		"NativeFramerateInput",
@@ -642,9 +642,9 @@ func (m *Mediafile) ToStrCommand() []string {
 	return strCommand
 }
 
-func (m *Mediafile) ObtainImagePath() []string {
-	if m.imagePath != "" {
-		return []string{"-i", m.imagePath}
+func (m *Mediafile) ObtainOtherPath() []string {
+	if m.otherPath != "" {
+		return []string{"-i", m.otherPath}
 	}
 	return nil
 }
@@ -967,7 +967,11 @@ func (m *Mediafile) ObtainInputInitialOffset() []string {
 }
 
 func (m *Mediafile) ObtainHlsListSize() []string {
-	return []string{"-hls_list_size", fmt.Sprintf("%d", m.hlsListSize)}
+	if m.hlsListSize != 0 {
+		return []string{"-hls_list_size", fmt.Sprintf("%d", m.hlsListSize)}
+	} else {
+		return nil
+	}
 }
 
 func (m *Mediafile) ObtainHlsSegmentDuration() []string {
