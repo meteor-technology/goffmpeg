@@ -568,6 +568,8 @@ func (m *Mediafile) ToStrCommand() []string {
 	var strCommand []string
 
 	opts := []string{
+		"Looping",
+		"InputPath",
 		"OtherPath",
 		"SeekTimeInput",
 		"SeekUsingTsInput",
@@ -575,7 +577,6 @@ func (m *Mediafile) ToStrCommand() []string {
 		"DurationInput",
 		"RtmpLive",
 		"InputInitialOffset",
-		"InputPath",
 		"InputPipeCommand",
 		"HideBanner",
 		"Aspect",
@@ -624,7 +625,6 @@ func (m *Mediafile) ToStrCommand() []string {
 		"OutputPath",
 		"Bframe",
 		"MovFlags",
-		"Looping",
 		"PixelFormat",
 		"Shortest",
 	}
@@ -640,6 +640,20 @@ func (m *Mediafile) ToStrCommand() []string {
 	}
 
 	return strCommand
+}
+
+func (m *Mediafile) ObtainLooping() []string {
+	if m.looping != 0 {
+		return []string{"-loop", fmt.Sprintf("%d", m.looping)}
+	}
+	return nil
+}
+
+func (m *Mediafile) ObtainInputPath() []string {
+	if m.inputPath != "" {
+		return []string{"-i", m.inputPath}
+	}
+	return nil
 }
 
 func (m *Mediafile) ObtainOtherPath() []string {
@@ -676,13 +690,6 @@ func (m *Mediafile) ObtainAspect() []string {
 
 	if m.aspect != "" {
 		return []string{"-aspect", m.aspect}
-	}
-	return nil
-}
-
-func (m *Mediafile) ObtainInputPath() []string {
-	if m.inputPath != "" {
-		return []string{"-i", m.inputPath}
 	}
 	return nil
 }
@@ -1059,13 +1066,6 @@ func (m *Mediafile) ObtainBframe() []string {
 func (m *Mediafile) ObtainMovFlags() []string {
 	if m.movflags != "" {
 		return []string{"-movflags", m.movflags}
-	}
-	return nil
-}
-
-func (m *Mediafile) ObtainLooping() []string {
-	if m.looping != 0 {
-		return []string{"-loop", fmt.Sprintf("%d", m.looping)}
 	}
 	return nil
 }
